@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iweb.mapper.ProductsMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        image, name, rating, favorites, price, sales, create_time, inventory
+    </sql>
+
+    <select id="listProductsPage" resultType="com.iweb.vo.IndexCategoryNamesVO">
+        select  pro.id, <include refid="Base_Column_List"/>,
+        c.categoryname
+        from products pro
+        left join categories c on pro.id = c.p_id
+
+    </select>
+
+</mapper>

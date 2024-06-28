@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iweb.mapper.DistrictMapper">
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, parent_id, city_code, adcode, name, polyline, center, level, remark, create_by, create_time, update_by, update_time, deleted
+    </sql>
+
+    <select id="getDistrictList" resultType="com.iweb.entity.District">
+        WITH RECURSIVE district_list AS (
+        <!-- 初始查询 -->
+        SELECT id, parent_id, city_code, adcode, name, polyline, center, level, remark, create_by, create_time, update_by, update_time, deleted
+        FROM district
+        <where>
+            <if test="districtId != null  and districtId != ''">
+                id = #{districtId}
+            </if>
+        </where>
+        UNION ALL
+        <!-- 递归查询 -->
+        SELECT d.id, d.parent_id, d.city_code, d.adcode, d.name, d.polyline, d.center, d.level, d.remark, d.create_by, d.create_time, d.update_by, d.update_time, d.deleted
+        FROM district d
+        INNER JOIN district_list dl ON d.parent_id = dl.id
+        )
+        SELECT * FROM district_list
+    </select>
+
+</mapper>
