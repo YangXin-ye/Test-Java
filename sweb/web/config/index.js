@@ -10,7 +10,6 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
     proxyTable: {
       '/': {
           target: "http://localhost:8888", // 后端服务器地址

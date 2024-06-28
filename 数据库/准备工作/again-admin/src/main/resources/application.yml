@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/users?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+      username: root
+      password: Qazxsw0..0
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+  redis:
+    host: localhost
+    port: 6379
+    password: redis123
+server:
+  port: 8888
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  global-config:
+    db-config:
+      id-type: AUTO
+      logic-delete-value: -1
+      logic-not-delete-value: 0
+      logic-delete-field: is_deleted
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    jdbc-type-for-null: 'null'
+
+aliyun:
+  oss:
+    endpoint: https://oss-cn-nanjing.aliyuncs.com
+    accessKeyId: LTAI5tKsJtiRmt7F1sFBLdiV
+    accessKeySecret: BIQsoZUAdwPeYBhv7bTOOJkxNOUhVw
+    bucketName: yxy-study
