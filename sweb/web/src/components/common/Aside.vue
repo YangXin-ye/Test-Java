@@ -18,7 +18,7 @@
                 </template>
                 <el-menu-item-group>
                     <el-menu-item index="1-1" 
-                    v-for="subitem in item.childred" 
+                    v-for="subitem in item.children" 
                     :key="subitem.name" 
                     :index="subitem.name" 
                     @click="clickRoute(subitem)">
@@ -48,7 +48,7 @@ export default {
                     label: 'Vue基础',
                     icon: 'tickets',
                     name: 'command',
-                    childred: [
+                    children: [
                         {
                             path:'/Father',
                             name: 'Command',
@@ -67,7 +67,7 @@ export default {
                     label: '用户管理',
                     icon: 'user',
                     name: 'customer',
-                    childred: [
+                    children: [
                         {
                             path:'/CutomerList',
                             name: 'CustomerList',
@@ -80,7 +80,7 @@ export default {
                     label: '商品管理',
                     icon: 's-data',
                     name: 'product',
-                    childred: [
+                    children: [
                         {
                             path:'/Product',
                             name: 'Product',
@@ -112,7 +112,7 @@ export default {
                     label: 'Echarts图表',
                     icon: 's-opportunity',
                     name: 'echarts',
-                    childred: [
+                    children: [
                         {
                             path:'/Echarts',
                             name: 'Echarts',
@@ -125,7 +125,7 @@ export default {
                     label: '订单管理',
                     icon: 's-order',
                     name: 'order',
-                    childred: [
+                    children: [
                         {
                             path:'/AllOrder',
                             name: 'AllOrder',
@@ -153,10 +153,10 @@ export default {
     },
     computed: {
         noChildren() {
-            return this.menu.filter(item => !item.childred)
+            return this.menu.filter(item => !item.children)
         },
         hasChildren() {
-            return this.menu.filter(item => item.childred)
+            return this.menu.filter(item => item.children)
         }
     }
 }
