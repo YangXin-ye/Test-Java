@@ -99,7 +99,7 @@ export default {
                     label: '数据管理',
                     icon: 's-fold',
                     name: 'data',
-                    childred: [
+                    children: [
                         {
                             path:'/AllData',
                             name: 'AllData',
