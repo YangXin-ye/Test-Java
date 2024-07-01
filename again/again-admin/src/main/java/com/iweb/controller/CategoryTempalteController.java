@@ -1,6 +1,7 @@
 package com.iweb.controller;
 
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.iweb.config.Result;
 import com.iweb.entity.CategoryTempalte;
 import com.iweb.entity.ListCategoriesPageReq;
@@ -10,6 +11,8 @@ import com.iweb.service.CategoryTempalteService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -69,6 +72,17 @@ public class CategoryTempalteController {
     public Result update(@RequestBody CategoryTempalte categoryTempalte) {
         categoryTempalteService.updateProduct(categoryTempalte);
         return Result.success();
+    }
+
+
+    /**
+     * 获取所有分类名称
+     * @return
+     */
+    @GetMapping("/categoryName")
+    public Result categoryName() {
+        List<CategoryTempalte> list = categoryTempalteService.list();
+        return Result.success(list);
     }
 
 }
