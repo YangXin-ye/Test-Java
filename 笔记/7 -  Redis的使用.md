@@ -57,9 +57,11 @@ public class ProductsController {
     private ProductsService productsService;
 
 
+    //进行注入Redis使用属性
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
+    //进行声明变量
     private static final String PRODUCTS_CACHE_KEY = "products_page";
 
 
@@ -76,18 +78,20 @@ public class ProductsController {
     public Result listUserPage(ListProductsPageReq listProductsPageReq,
                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
+        //进行组装redis的分页key
         String cacheKey = PRODUCTS_CACHE_KEY + "_" + pageNum + "_" + pageSize;
 
-        // 检查缓存
         Page<IndexCategoryNamesVO> productsPage;
+        //从redis中进行查询，缓存的分页数据
         String redisData = redisTemplate.opsForValue().get(cacheKey);
         if ( redisData == null) {
-            // 从数据库获取数据
+            // 如果redis中的查询到是空，则进行查询数据库
             productsPage = productsService.listProductsPage(pageNum, pageSize, listProductsPageReq);
 
-            // 存入缓存，设置缓存时间
+            // 查询数据库以后，进行缓存到redis
             redisTemplate.opsForValue().set(cacheKey, JSON.toJSONString(productsPage), 10, TimeUnit.MINUTES);
         }else{
+            // redis数据不为空，直接设置值，进行返回
             productsPage = JSON.parseObject(redisData,Page.class);
         }
         return Result.success(productsPage);
@@ -102,6 +106,7 @@ public class ProductsController {
     @PostMapping("/add")
     public Result add(@RequestBody AddProductsDTO addProductsDTO) {
         productsService.addProducts(addProductsDTO);
+        //如果新增了一个新的数据，则调用清除缓存数据，进行吧redis中的缓存数据全部清除掉
         clearCache();
         return Result.success();
     }
@@ -112,6 +117,7 @@ public class ProductsController {
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable("id") Integer id) {
         productsService.deleteOrder(id);
+        //如果删除了一个新的数据，则调用清除缓存数据，进行吧redis中的缓存数据全部清除掉
         clearCache();
         return Result.success();
     }
@@ -122,14 +128,17 @@ public class ProductsController {
     @PostMapping("/update")
     public Result update(@RequestBody Products products) {
         productsService.updateOrder(products);
+        //如果修改了一个新的数据，则调用清除缓存数据，进行吧redis中的缓存数据全部清除掉
         clearCache();
         return Result.success();
     }
 
-    // 清除缓存的方法
+    // 清除Redis缓存的方法
     private void clearCache() {
+        //获取到每一个分页的商品数据
         Set<String> keys = redisTemplate.keys(PRODUCTS_CACHE_KEY + "_*");
         if (keys != null) {
+            //如果商品分页缓存的key不是空，则调用redis进行删除
             redisTemplate.delete(keys);
         }
     }
