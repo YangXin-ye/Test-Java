@@ -2,6 +2,7 @@ package com.iweb.entity;
 
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -64,6 +65,13 @@ public class Products implements Serializable {
      * 商品库存
      */
     private Integer inventory;
+
+
+    /**
+     * 商品分类
+     */
+    @TableField(exist = false)
+    private String categoryName;
 
 
 }

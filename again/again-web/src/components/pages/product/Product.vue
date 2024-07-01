@@ -34,6 +34,8 @@
         </el-table-column>
         <el-table-column prop="inventory" label="商品库存" width="180" header-align="center" align="center">
         </el-table-column>
+        <el-table-column prop="categoryName" label="商品分类" width="180" header-align="center" align="center">
+        </el-table-column>
         <el-table-column label="操作" width="180" header-align="center" align="center">
           <template slot-scope="scope">
             <el-button type="primary" round size="small" @click="openDialogUpdate(scope.row)">编辑</el-button>
