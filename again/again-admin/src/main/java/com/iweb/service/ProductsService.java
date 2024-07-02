@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ProductsService extends IService<Products> {
 
-    Page<Products> listUserPage(Integer pageNum, Integer pageSize, ListProductsPageReq listProductsPageReq);
+    Page<Products> listProductPage(Integer pageNum, Integer pageSize, ListProductsPageReq listProductsPageReq);
 
     void addProducts(Products products);
 

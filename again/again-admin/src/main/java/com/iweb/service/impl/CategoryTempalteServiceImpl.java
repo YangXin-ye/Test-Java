@@ -2,14 +2,19 @@ package com.iweb.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.iweb.entity.Categories;
 import com.iweb.entity.CategoryTempalte;
 import com.iweb.entity.ListCategoriesPageReq;
 import com.iweb.mapper.CategoryTempalteMapper;
+import com.iweb.service.CategoriesService;
 import com.iweb.service.CategoryTempalteService;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -21,6 +26,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CategoryTempalteServiceImpl extends ServiceImpl<CategoryTempalteMapper, CategoryTempalte> implements CategoryTempalteService {
+
+    @Resource
+    private CategoriesService categoriesService;
 
     @Override
     public Page<CategoryTempalte> listUserPage(Integer pageNum, Integer pageSize, ListCategoriesPageReq listCategoriesPageReq) {
@@ -39,8 +47,14 @@ public class CategoryTempalteServiceImpl extends ServiceImpl<CategoryTempalteMap
 
     @Override
     public void deleteOrder(Integer id) {
+        CategoryTempalte categoryTempalte = baseMapper.selectById(id);
+        String categoryname = categoryTempalte.getCategoryname();
+        QueryWrapper<Categories> categoriesQueryWrapper = new QueryWrapper<>();
+        categoriesQueryWrapper.eq("categoryname",categoryname);
+        categoriesService.remove(categoriesQueryWrapper);
         baseMapper.deleteById(id);
     }
+
 
     @Override
     public void updateProduct(CategoryTempalte categoryTempalte) {

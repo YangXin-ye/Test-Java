@@ -89,6 +89,12 @@ export default {
         this.dataList = res.data.records
         // 获取总数据
         this.total = res.data.total
+
+        // 处理特殊情况
+        if (res.data.records.length == 0 && this.pageIndex > 1){
+          this.pageIndex = this.pageIndex - 1
+          this.getData()
+        }
       })
     },
     openDialog() {

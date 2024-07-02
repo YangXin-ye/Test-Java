@@ -79,6 +79,12 @@ export default {
         this.records = res.data.records
         // 获取总数据
         this.total = res.data.total
+
+        // 处理特殊情况
+        if (res.data.records.length == 0 && this.pageIndex > 1){
+          this.pageIndex = this.pageIndex - 1
+          this.getData()
+        }
       })
     },
     openDialogUpdate(record) {
@@ -93,7 +99,7 @@ export default {
       const data = {
         ...this.form
       }
-      // 发送修改用户请求
+      // 发送修改分类请求
       updateCategories(data).then(res => {
         if (res.code === 200) {
           this.$message({
@@ -154,9 +160,9 @@ export default {
       this.pageIndex = val;
       this.getCategoriesList();
     },
-    // 删除用户
+    // 删除商品
     deleteCategories(id) {
-      this.$confirm('确定要删除该用户吗?', '提示', {
+      this.$confirm('确定要删除该分类吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

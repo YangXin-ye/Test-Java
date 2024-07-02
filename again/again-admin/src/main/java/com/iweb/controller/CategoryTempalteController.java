@@ -4,12 +4,11 @@ package com.iweb.controller;
 import com.iweb.config.Result;
 import com.iweb.entity.CategoryTempalte;
 import com.iweb.entity.ListCategoriesPageReq;
-import com.iweb.entity.ListProductsPageReq;
-import com.iweb.entity.Products;
 import com.iweb.service.CategoryTempalteService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -47,7 +46,7 @@ public class CategoryTempalteController {
      * @param categoryTempalte
      * @return
      */
-    @PostMapping("/add")
+    @PostMapping("/insert")
     public Result add(@RequestBody CategoryTempalte categoryTempalte) {
         categoryTempalteService.addProducts(categoryTempalte);
         return Result.success();
@@ -69,6 +68,16 @@ public class CategoryTempalteController {
     public Result update(@RequestBody CategoryTempalte categoryTempalte) {
         categoryTempalteService.updateProduct(categoryTempalte);
         return Result.success();
+    }
+
+    /**
+     * 获取所有分类名称
+     * @return
+     */
+    @GetMapping("/categoryName")
+    public Result categoryName() {
+        List<CategoryTempalte> list = categoryTempalteService.list();
+        return Result.success(list);
     }
 
 }

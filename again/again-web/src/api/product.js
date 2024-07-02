@@ -19,3 +19,8 @@ export const addProduct = (data) => {
 export const deleteProduct = (id) => {
   return http.post('/products/delete/' + id )
 }
+
+// 获取标签数据
+export const getTagList = () => {
+  return http.get('/category-tempalte/categoryName')
+}

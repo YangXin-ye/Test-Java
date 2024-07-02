@@ -36,7 +36,7 @@ public class ProductsController {
                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
 
-        return Result.success(productsService.listUserPage(pageNum, pageSize, listProductsPageReq));
+        return Result.success(productsService.listProductPage(pageNum, pageSize, listProductsPageReq));
     }
 
     /**

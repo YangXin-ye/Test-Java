@@ -14,7 +14,7 @@ public class IndexUserInfoVO {
 
     private Integer uId;
     private Integer aId;
-    private  String username;
+    private String username;
     private String avatar;
     private String role;
     private Timestamp time;

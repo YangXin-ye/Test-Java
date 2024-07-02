@@ -6,8 +6,8 @@
           <div class="user">
             <img src="@/assets/images/user.jpg"/>
             <div class="userinfo">
-              <p class="name">{{ name }}</p>
-              <p class="access">{{access}}</p>
+              <p class="name">{{ username }}</p>
+              <p class="access">{{ access }}</p>
             </div>
           </div>
           <div class="login-info">
@@ -24,11 +24,13 @@
 </template>
 
 <script>
+import { getHomeData } from "../../api/user";
+
 export default {
   name: "FristPage",
   data() {
     return {
-      name: "",
+      username: "",
       access: "",
       time: "",
       address: ""
@@ -39,9 +41,9 @@ export default {
   },
   methods: {
     getInfo() {
-      this.$axios.get('/users/userInfo').then(res => {
-        this.name = res.data.data.username
-        if (this.access = res.data.data.role === "ADMIN") {
+      getHomeData().then(res => {
+        this.username = res.data.username
+        if (res.data.role === "ADMIN") {
           this.access = "管理员"
         }
       })

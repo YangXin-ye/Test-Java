@@ -34,6 +34,8 @@
         </el-table-column>
         <el-table-column prop="inventory" label="商品库存" width="180" header-align="center" align="center">
         </el-table-column>
+        <el-table-column prop="categoryName" label="商品分类" width="180" header-align="center" align="center">
+        </el-table-column>
         <el-table-column label="操作" width="180" header-align="center" align="center">
           <template slot-scope="scope">
             <el-button type="primary" round size="small" @click="openDialogUpdate(scope.row)">编辑</el-button>
@@ -61,6 +63,28 @@
         <el-form-item label="商品库存">
           <el-input v-model="form.inventory"></el-input>
         </el-form-item>
+
+        <!-- 新增商品分类-->
+        <el-form-item label="商品分类">
+          <el-select v-model="selectedCategoryNames" multiple placeholder="请选择分类" @change="selectedCategoryChange">
+            <el-option :label="item.categoryname" :value="item.categoryname" v-for="item in options"
+                       :key="item.id"></el-option>
+          </el-select>
+
+          <el-tag :key="categoryName" v-for="categoryName in form.categoryNames" closable
+                  :disable-transitions="false" @close="removeCategory(categoryName)">
+            {{ categoryName }}
+          </el-tag>
+
+          <el-input ref="saveCategoryInput" class="input-new-tag" v-if="inputCategoryOpen"
+                    v-model="inputCategory" size="small" @keyup.enter.native="inputCategoryConfirm"
+                    @blur="inputCategoryConfirm">
+          </el-input>
+
+          <el-button v-else class="button-new-tag" size="small" @click="showInputCategory">+ New
+            Tag</el-button>
+        </el-form-item>
+
         <el-button type="success" @click="saveOrUpdate()">{{ title }}</el-button>
       </el-form>
     </el-dialog>
@@ -68,7 +92,7 @@
 </template>
 
 <script>
-import { getProductList, updateProduct, addProduct, deleteProduct } from '@/api/product'
+import { getProductList, updateProduct, addProduct, deleteProduct ,getTagList } from '@/api/product'
 
 export default {
   name: 'Product',
@@ -90,11 +114,19 @@ export default {
         inventory: '',
         inputVisible: false,
         inputValue: ''
-      }
+      },
+      // 新增商品分类所用属性
+      selectedCategoryNames: [],
+      options: [],
+      inputCategoryOpen: false,
+      inputCategory:"",
+      inputCategoryNames: new Set(),
+
     }
   },
   mounted() {
-    this.getProductList()
+    this.getProductList();
+    this.getCategoriesData();
   },
   methods: {
     getProductList() {
@@ -113,6 +145,11 @@ export default {
         // 获取总数据
         this.total = res.data.total
 
+        // 处理特殊情况
+        if (res.data.records.length == 0 && this.pageIndex > 1){
+          this.pageIndex = this.pageIndex - 1
+          this.getProductList()
+        }
       })
     },
     openDialogUpdate(record) {
@@ -122,6 +159,9 @@ export default {
       this.form = {
         ...record
       }
+      this.form.categoryNames =  this.form.categoryName.replace(/\s+/g, "").split(",");
+    //   清空下拉选择类型
+      this.selectedCategoryNames = [...this.form.categoryNames]
     },
     updateProduct() {
       const data = {
@@ -213,6 +253,58 @@ export default {
             })
           }
         })
+      })
+    },
+    //新增商品选择分类方法
+    selectedCategoryChange(){
+      this.computedCategoryNames()
+    },
+    removeCategory(item) {
+      console.log(item)
+      // 删除对应下标数据
+      this.form.categoryNames.splice(this.form.categoryNames.indexOf(item), 1);
+      // 同时更新下拉框
+      this.selectedCategoryNames = [...this.form.categoryNames]
+      // this.inputCategoryNames.delete(item)
+      this.computedCategoryNames()
+    },
+    inputCategoryConfirm() {
+      let inputValue = this.inputCategory;
+      console.log("inputValue", inputValue);
+      if (inputValue) {
+        console.log("进入添加方法");
+        this.inputCategoryNames.add(inputValue);
+        this.computedCategoryNames()
+      }
+      this.inputCategoryOpen = false;
+      this.inputCategory = '';
+    },
+    showInputCategory() {
+      this.inputCategoryOpen = true;
+      this.$nextTick(_ => {
+        this.$refs.saveCategoryInput.$refs.input.focus();
+      });
+    },
+    computedCategoryNames() {
+      let categoryNames = new Set()
+      if (this.selectedCategoryNames) {
+        this.selectedCategoryNames.forEach(categoryName => {
+          categoryNames.add(categoryName)
+        })
+      }
+
+      if (this.inputCategoryNames) {
+        this.inputCategoryNames.forEach(categoryName => {
+          categoryNames.add(categoryName)
+        })
+      }
+      this.form.categoryNames =  Array.from(categoryNames)
+    },
+    getCategoriesData() {
+      getTagList().then(res => {
+        console.log(res.data);
+        this.options = res.data;
+
       })
     }
   }

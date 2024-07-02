@@ -131,6 +131,12 @@ export default {
         })
         // 获取总数据
         this.total = res.data.total
+
+        // 处理特殊情况
+        if (res.data.records.length == 0 && this.pageIndex > 1){
+          this.pageIndex = this.pageIndex - 1
+          this.getUserList()
+        }
       })
     },
     openDialog() {
@@ -145,11 +151,11 @@ export default {
     },
     openDialogInsert(){
       // 打开窗口
-      this.dialogFormVisible = true;
+      this.openDialog()
     },
     insertUser() {
       // 打开窗口
-      this.dialogFormVisible = true;
+      this.openDialog()
 
       // 发送请求
       insertUser(this.form).then(res => {
