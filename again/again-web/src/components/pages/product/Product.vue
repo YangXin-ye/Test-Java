@@ -181,6 +181,8 @@ export default {
       this.form = {}
       // 打开窗口
       this.dialogFormVisible = true;
+      this.inputCategory = '';
+      this.inputCategoryNames = new Set()
     },
     saveOrUpdate() {
       if (this.form.id) {

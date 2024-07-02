@@ -7,12 +7,12 @@ export const getCategoriesList = (params) => {
 
 // 修改商品分类的数据
 export const updateCategories = (params) => {
-  return http.put('/category-tempalte/update', params)
+  return http.post('/category-tempalte/update', params)
 }
 
 // 删除商品分类的数据
 export const deleteCategories = (id) => {
-  return http.delete('/category-tempalte/delete/', id)
+  return http.post('/category-tempalte/delete/'+id)
 }
 
 // 新增商品分类的数据

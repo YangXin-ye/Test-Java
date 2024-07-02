@@ -47,12 +47,12 @@ public class CategoryTempalteServiceImpl extends ServiceImpl<CategoryTempalteMap
 
     @Override
     public void deleteOrder(Integer id) {
-        baseMapper.deleteById(id);
         CategoryTempalte categoryTempalte = baseMapper.selectById(id);
         String categoryname = categoryTempalte.getCategoryname();
         QueryWrapper<Categories> categoriesQueryWrapper = new QueryWrapper<>();
         categoriesQueryWrapper.eq("categoryname",categoryname);
         categoriesService.remove(categoriesQueryWrapper);
+        baseMapper.deleteById(id);
     }
 
     @Override
