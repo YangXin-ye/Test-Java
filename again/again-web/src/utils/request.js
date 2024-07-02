@@ -6,7 +6,7 @@ const request = axios.create({
   // 同一请求前缀
   baseURL: "http://localhost:8080/",
   // 超时时间
-  timeout: 5000,
+  timeout: 200000,
 });
 
 // 请求拦截

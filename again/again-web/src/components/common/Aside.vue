@@ -105,6 +105,19 @@ export default {
           ]
         },
         {
+          label: 'ES数据',
+          icon: 's-fold',
+          name: 'es',
+          children: [
+            {
+              path:'/esData',
+              name: 'EsData',
+              label: 'ES数据',
+              url: 'es/AllData'
+            }
+          ]
+        },
+        {
           label: 'Echarts图表',
           icon: 's-opportunity',
           name: 'echarts',
