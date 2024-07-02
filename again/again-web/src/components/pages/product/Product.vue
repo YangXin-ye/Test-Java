@@ -159,8 +159,8 @@ export default {
       this.form = {
         ...record
       }
-      this.form.categoryNames =  this.form.categoryName.replace(/\s+/g, "").split(",");
-    //   清空下拉选择类型
+      this.form.categoryNames = this.form.categoryName.replace(/\s+/g, "").split(",");
+      // 清空下拉选择类型
       this.selectedCategoryNames = [...this.form.categoryNames]
     },
     updateProduct() {
@@ -188,6 +188,8 @@ export default {
       this.form = {}
       // 打开窗口
       this.dialogFormVisible = true;
+      this.inputCategory = '';
+      this.inputCategoryNames = new Set()
     },
     saveOrUpdate() {
       if (this.form.id) {
@@ -255,7 +257,7 @@ export default {
         })
       })
     },
-    //新增商品选择分类方法
+//新增商品选择分类方法
     selectedCategoryChange(){
       this.computedCategoryNames()
     },

@@ -43,6 +43,7 @@ public class CategoryTempalteServiceImpl extends ServiceImpl<CategoryTempalteMap
     @Override
     public void addProducts(CategoryTempalte categoryTempalte) {
         baseMapper.insert(categoryTempalte);
+
     }
 
     @Override

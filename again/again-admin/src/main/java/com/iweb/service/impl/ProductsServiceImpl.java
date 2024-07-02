@@ -17,9 +17,10 @@ import com.iweb.mapper.ProductsMapper;
 import com.iweb.service.CategoriesService;
 import com.iweb.service.CategoryTempalteService;
 import com.iweb.service.ProductsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -64,6 +65,7 @@ public class ProductsServiceImpl extends ServiceImpl<ProductsMapper, Products> i
     @Override
     public void addProducts(Products products) {
         baseMapper.insert(products);
+
         // 添加商品对应分类数据
         if (CollUtil.isNotEmpty(products.getCategoryNames())) {
             List<String> categoryNames = products.getCategoryNames();
