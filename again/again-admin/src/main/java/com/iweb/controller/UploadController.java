@@ -14,7 +14,6 @@ import java.io.IOException;
 @RestController
 public class UploadController {
 
-
     @PostMapping("/upload")
     public Result upload(@RequestBody MultipartFile file) throws IOException {
         String username = "";

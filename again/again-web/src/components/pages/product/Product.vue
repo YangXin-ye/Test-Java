@@ -230,7 +230,6 @@ export default {
             type: 'error'
           })
         }
-
       })
     },
     // 每页数
@@ -315,7 +314,6 @@ export default {
       getTagList().then(res => {
         console.log(res.data);
         this.options = res.data;
-
       })
     },
   //   图片上传
