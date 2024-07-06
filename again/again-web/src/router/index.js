@@ -13,6 +13,7 @@ import Product from '../components/pages/product/Product.vue'
 import Categories from '../components/pages/product/Categories.vue'
 import EsData from '../components/pages/esData/EsData.vue'
 
+
 Vue.use(Router)
 
 export default new Router({
@@ -71,7 +72,7 @@ export default new Router({
           component: Categories
         },
         {
-          path: '/esData',
+          path: '/EsData',
           name: 'Categories',
           component: EsData
         }

@@ -1,5 +1,3 @@
-import { name } from "file-loader"
-
 export default {
   state: {
     isCollapse: false, // 控制菜单的状态

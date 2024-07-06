@@ -4,7 +4,7 @@ import { Message } from 'element-ui'
 
 const request = axios.create({
   // 同一请求前缀
-  baseURL: "http://localhost:8080/",
+  baseURL: "/api",
   // 超时时间
   timeout: 200000,
 });

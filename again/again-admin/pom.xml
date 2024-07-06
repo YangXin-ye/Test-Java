@@ -183,7 +183,7 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.iweb.Application</mainClass>
-                    <skip>true</skip>
+                    <skip>false</skip>
                 </configuration>
                 <executions>
                     <execution>
