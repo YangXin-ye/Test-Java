@@ -1,12 +1,16 @@
 package com.iweb.config;
 
 import com.iweb.interceptor.LoginInterceptor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 
 /**
  * @Author 杨芯叶
@@ -19,29 +23,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Resource
     private LoginInterceptor loginInterceptor;
 
-    /**
-     * 跨域配置
-     */
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        // 设置允许跨域的路径
-        registry.addMapping("/**")
+    @Bean
+    public CorsFilter filterRegistrationBean() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        //1.允许任何来源
+        corsConfiguration.setAllowedOriginPatterns(Collections.singletonList("*"));
+        //2.允许任何请求头
+        corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
+        //3.允许任何方法
+        corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
+        //4.允许凭证
+        corsConfiguration.setAllowCredentials(true);
 
-                // 设置允许跨域请求的域名 单个源：http://localhost:8888
-                .allowedOriginPatterns("*")
-
-                // 是否允许cookie
-                .allowCredentials(true)
-
-                // 设置允许的请求方式
-                .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-
-                // 设置允许的header属性
-                .allowedHeaders("*")
-
-                // 跨域允许时间
-                .maxAge(3600);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(source);
     }
+
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)

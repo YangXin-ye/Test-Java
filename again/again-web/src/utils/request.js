@@ -7,7 +7,7 @@ console.log(process.env)
 const request = axios.create({
   // 同一请求前缀
   // baseURL: process.env.API_URL,
-  baseURL: 'http://127.0.0.1:8888',
+  baseURL: 'http://192.168.200.5:8888/',
   // 超时时间
   timeout: 200000,
 });
