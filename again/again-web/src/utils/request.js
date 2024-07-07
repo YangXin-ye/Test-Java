@@ -2,9 +2,12 @@ import axios from "axios";
 import router from '../router/index'
 import { Message } from 'element-ui'
 
+console.log(process)
+console.log(process.env)
 const request = axios.create({
   // 同一请求前缀
-  baseURL: "/api",
+  // baseURL: process.env.API_URL,
+  baseURL: 'http://127.0.0.1:8888',
   // 超时时间
   timeout: 200000,
 });
