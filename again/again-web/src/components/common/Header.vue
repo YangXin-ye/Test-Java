@@ -10,35 +10,46 @@
     </div>
     <div class="r-context">
       <el-dropdown>
-                <span class="el-dropdown-link">
-                    <img class="user_img" src="@/assets/images/user.jpg" />
-                </span>
+        <span class="el-dropdown-link">
+          <img class="user_img" src="@/assets/images/user.jpg" />
+        </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>个人信息</el-dropdown-item>
-          <el-dropdown-item>注销</el-dropdown-item>
+          <el-dropdown-item @click.native="upInfo">个人信息</el-dropdown-item>
+          <el-dropdown-item @click.native="handleClick">注销</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
   </div>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 
 export default {
   name: 'Header',
   data() {
-    return {
-
-    }
+    return {}
   },
   methods: {
+    handleClick() {
+      this.$message({
+        message: '退出登陆成功',
+        type: 'success'
+      })
+      localStorage.removeItem('token')
+      // 跳转到首页
+      this.$router.push('/login')
+    },
     handleMenu() {
       this.$store.commit('collapseChange')
+    },
+    upInfo(){
+      this.$router.push('/upInfo')
     }
   },
   computed: {
     ...mapState({
-      tags:state => state.tab.tabsList
+      tags: state => state.tab.tabsList
     })
   }
 }
@@ -69,6 +80,7 @@ export default {
       border-radius: 50%;
     }
   }
+
   .l-context {
     display: flex;
     align-items: center;
@@ -80,6 +92,7 @@ export default {
         &.is-link {
           color: #f8d173;
         }
+
         &:hover {
           color: aqua;
           transition: color 1s;
@@ -90,7 +103,8 @@ export default {
         .el-breadcrumb__inner {
           color: #fff;
         }
-        .el-breadcrumb__inner:hover{
+
+        .el-breadcrumb__inner:hover {
           color: aqua;
           transition: color 1s;
           cursor: pointer;
@@ -99,5 +113,4 @@ export default {
     }
   }
 }
-
 </style>

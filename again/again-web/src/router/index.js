@@ -12,6 +12,7 @@ import Echarts from '../components/pages/echarts/Echarts.vue'
 import Product from '../components/pages/product/Product.vue'
 import Categories from '../components/pages/product/Categories.vue'
 import EsData from '../components/pages/esData/EsData.vue'
+import UpInfo from '../components/pages/upInfo/upInfo.vue'
 
 
 Vue.use(Router)
@@ -75,6 +76,11 @@ export default new Router({
           path: '/EsData',
           name: 'Categories',
           component: EsData
+        },
+        {
+          path: '/upInfo',
+          name: 'upInfo',
+          component: UpInfo
         }
       ]
     },
