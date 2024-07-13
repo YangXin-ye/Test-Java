@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import {getMenuList} from '@/api/menu'
 export default {
   name:'Aside',
   data() {
@@ -154,6 +155,9 @@ export default {
       ]
     };
   },
+  mounted() {
+    this.getMenuListData();
+  },
   methods: {
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -168,6 +172,13 @@ export default {
       }
       // 触发面包屑
       this.$store.commit("selectMenu",item);
+    },
+    getMenuListData(){
+      //获取数据库的menu
+      getMenuList().then(res => {
+        this.menuData=res.data;
+        console.log(res.data);
+      })
     }
   },
   computed: {

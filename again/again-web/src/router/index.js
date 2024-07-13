@@ -13,6 +13,7 @@ import Product from '../components/pages/product/Product.vue'
 import Categories from '../components/pages/product/Categories.vue'
 import EsData from '../components/pages/esData/EsData.vue'
 import UpInfo from '../components/pages/upInfo/upInfo.vue'
+import MenuList from '../components/pages/menu/MenuList.vue'
 
 
 Vue.use(Router)
@@ -81,6 +82,11 @@ export default new Router({
           path: '/upInfo',
           name: 'upInfo',
           component: UpInfo
+        },
+        {
+          path: '/menuList',
+          name: 'menuList',
+          component: MenuList
         }
       ]
     },
