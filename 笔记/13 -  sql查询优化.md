@@ -1,3 +1,10 @@
+# 添加菜单
+```sql
+INSERT INTO `menu` (`id`, `name`, `label`, `icon`, `url`, `path`, `parent`) VALUES (21, 'es', 'ES数据', 's-fold', NULL, NULL, 0);
+INSERT INTO `menu` (`id`, `name`, `label`, `icon`, `url`, `path`, `parent`) VALUES (22, 'echarts', 'Echarts图表', 's-fold', 'echarts/Echarts', '/Echarts', 21);
+INSERT INTO `menu` (`id`, `name`, `label`, `icon`, `url`, `path`, `parent`) VALUES (23, 'sql/optimize', 'sql优化', NULL, NULL, NULL, 0);
+INSERT INTO `menu` (`id`, `name`, `label`, `icon`, `url`, `path`, `parent`) VALUES (24, 'sqlOpt', 'sql查询优化', '', '/sql/opt/optimize', '/sqlOptimize', 23);
+```
 # 一、创建表sql
 ```sql
 CREATE TABLE db_users (

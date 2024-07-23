@@ -11,7 +11,7 @@
     <div class="r-context">
       <el-dropdown>
         <span class="el-dropdown-link">
-          <img class="user_img" src="@/assets/images/user.jpg" />
+          <img class="user_img" :src="avatar" />
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item @click.native="upInfo">个人信息</el-dropdown-item>
@@ -24,13 +24,24 @@
 
 <script>
 import { mapState } from 'vuex';
+import {getHomeData} from "../../api/user";
 
 export default {
   name: 'Header',
   data() {
-    return {}
+    return {
+      avatar:""
+    }
+  },
+  mounted() {
+    this.getInfo()
   },
   methods: {
+    getInfo() {
+      getHomeData().then(res => {
+        this.avatar = res.data.avatar
+      })
+    },
     handleClick() {
       this.$message({
         message: '退出登陆成功',

@@ -4,7 +4,7 @@
       <el-col :span="8">
         <el-card class="box-card">
           <div class="user">
-            <img src="@/assets/images/user.jpg"/>
+            <img :src="avatar"/>
             <div class="userinfo">
               <p class="name">{{ username }}</p>
               <p class="access">{{ access }}</p>
@@ -33,7 +33,8 @@ export default {
       username: "",
       access: "",
       time: "",
-      address: ""
+      address: "",
+      avatar:""
     }
   },
   mounted() {
@@ -43,6 +44,7 @@ export default {
     getInfo() {
       getHomeData().then(res => {
         this.username = res.data.username
+        this.avatar = res.data.avatar;
         if (res.data.role === "ADMIN") {
           this.access = "管理员"
         }
