@@ -15,6 +15,8 @@ import EsData from '../components/pages/esData/EsData.vue'
 import UpInfo from '../components/pages/upInfo/upInfo.vue'
 import MenuList from '../components/pages/menu/MenuList.vue'
 import SqlOut from '../components/pages/sqlOpt/SqlOut.vue'
+import DynamicTable from '../components/pages/dynamicTable/DynamicTable.vue'
+
 
 
 Vue.use(Router)
@@ -98,6 +100,11 @@ export default new Router({
           path: '/sqlOptimize',
           name: 'sqlOpt',
           component: SqlOut
+        },
+        {
+          path: '/dynamicTable',
+          name: 'sqlOpt',
+          component: DynamicTable
         }
       ]
     },

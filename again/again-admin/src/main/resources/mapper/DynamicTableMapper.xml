@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iweb.mapper.DynamicTableMapper">
+
+
+    <resultMap id="resultMap" type="com.iweb.vo.StudentVo">
+        <result column="SID" property="sId"></result>
+        <result column="SNAME" property="sName"></result>
+        <result column="SAGE" property="sAge"></result>
+        <result column="SSEX" property="sSex"></result>
+        <result column="SNATIVEPLACE" property="sNativePlace"></result>
+        <result column="SMAJOR" property="sMajor"></result>
+        <result column="SCLASS" property="sClass"></result>
+        <result column="SNATIVE" property="sNative"></result>
+        <result column="CNAME" property="cName"></result>
+        <result column="CVAL" property="cVal"></result>
+        <result column="CTIME" property="cTime"></result>
+        <result column="CMARK" property="cMark"></result>
+        <result column="TID" property="tId"></result>
+        <result column="TNAME" property="tName"></result>
+        <result column="TSEX" property="tSex"></result>
+        <result column="TAGE" property="tAge"></result>
+        <result column="TLVL" property="tLvl"></result>
+    </resultMap>
+
+    <select id="getStudentData" resultMap="resultMap">
+        SELECT
+            S.* ,
+            C.CNAME,
+            C.CVAL,
+            C.CTIME,
+            M.CMARK,
+            T.*
+        FROM
+            STUDENT S
+                JOIN
+            MARK M ON S.SID = M.SID
+                JOIN
+            COURSE C ON M.CID = C.CID
+                JOIN
+            TEACHER T ON C.TID = T.TID
+    </select>
+    <select id="getEmpData" resultType="com.iweb.vo.EmpVo">
+        SELECT
+            EMP.EMPNO empNo,
+            EMP.ENAME eName,
+            EMP.JOB job,
+            EMP.MGR mgr,
+            EMP.HIREDATE hireDate,
+            EMP.SAL sal,
+            EMP.COMM comm,
+            EMP.DEPTNO deptNo,
+            DEPT.DNAME dName,
+            DEPT.LOC loc,
+            BONUS.SAL AS bonusSal,
+            BONUS.COMM AS bonusComm,
+            SALGRADE.GRADE grade
+        FROM
+            EMP
+                LEFT JOIN
+            DEPT ON EMP.DEPTNO = DEPT.DEPTNO
+                LEFT JOIN
+            BONUS ON EMP.ENAME = BONUS.ENAME AND EMP.JOB = BONUS.JOB
+                LEFT JOIN
+            SALGRADE ON EMP.SAL BETWEEN SALGRADE.LOSAL AND SALGRADE.HISAL
+    </select>
+</mapper>
