@@ -11,5 +11,5 @@ import java.util.Map;
  * @Description:
  */
 public interface DynamicTableService {
-    Map<String, Object> list(Integer type,Integer pageNum,Integer pageSize);
+    Map<String, Object> list(Integer pageNum,Integer pageSize,String searchKey);
 }

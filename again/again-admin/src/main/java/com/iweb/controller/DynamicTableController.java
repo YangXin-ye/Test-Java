@@ -27,10 +27,10 @@ public class DynamicTableController {
     private DynamicTableService dynamicTableService;
 
     @GetMapping("/list")
-    public Result list(@RequestParam(required = true,defaultValue = "1") Integer type,
-                       @RequestParam(required = true,defaultValue = "1") Integer pageNum,
-                       @RequestParam(required = true,defaultValue = "5") Integer pageSize) {
-        Map<String, Object> response = dynamicTableService.list(type,pageNum,pageSize);
+    public Result list(@RequestParam(required = true,defaultValue = "1") Integer pageNum,
+                       @RequestParam(required = true,defaultValue = "5") Integer pageSize,
+                       @RequestParam(required = false) String searchKey) {
+        Map<String, Object> response = dynamicTableService.list(pageNum,pageSize,searchKey);
         return Result.success(response);
     }
 }

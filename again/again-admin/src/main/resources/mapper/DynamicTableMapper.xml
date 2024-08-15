@@ -42,19 +42,19 @@
     </select>
     <select id="getEmpData" resultType="com.iweb.vo.EmpVo">
         SELECT
-            EMP.EMPNO empNo,
-            EMP.ENAME eName,
-            EMP.JOB job,
-            EMP.MGR mgr,
-            EMP.HIREDATE hireDate,
-            EMP.SAL sal,
-            EMP.COMM comm,
-            EMP.DEPTNO deptNo,
-            DEPT.DNAME dName,
-            DEPT.LOC loc,
-            BONUS.SAL AS bonusSal,
-            BONUS.COMM AS bonusComm,
-            SALGRADE.GRADE grade
+            EMP.EMPNO,
+            EMP.ENAME,
+            EMP.JOB,
+            EMP.MGR,
+            EMP.HIREDATE,
+            EMP.ESAL ,
+            EMP.ECOMM,
+            EMP.DEPTNO,
+            DEPT.DNAME,
+            DEPT.LOC,
+            BONUS.SAL,
+            BONUS.COMM,
+            SALGRADE.GRADE
         FROM
             EMP
                 LEFT JOIN
@@ -63,5 +63,23 @@
             BONUS ON EMP.ENAME = BONUS.ENAME AND EMP.JOB = BONUS.JOB
                 LEFT JOIN
             SALGRADE ON EMP.SAL BETWEEN SALGRADE.LOSAL AND SALGRADE.HISAL
+    </select>
+
+
+    <select id="getData" resultType="com.iweb.vo.DynamicTableVo">
+        SELECT * from STUDENT
+        <if test="searchKey != null and searchKey != ''">
+            where EMP.ENAME like concat('%',concat(#{searchKey},'%'))
+        </if>
+        limit #{offset},#{pageSize}
+    </select>
+    <select id="getCount" resultType="java.lang.Integer">
+        SELECT
+        count(*)
+        FROM
+        STUDENT
+        <if test="searchKey != null and searchKey != ''">
+            where EMP.ENAME like concat('%',concat(#{searchKey},'%'))
+        </if>
     </select>
 </mapper>

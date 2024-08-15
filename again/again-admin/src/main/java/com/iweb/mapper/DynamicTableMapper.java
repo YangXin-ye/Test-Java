@@ -1,10 +1,13 @@
 package com.iweb.mapper;
 
+import com.iweb.vo.DynamicTableVo;
 import com.iweb.vo.EmpVo;
 import com.iweb.vo.StudentVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author：
@@ -19,4 +22,9 @@ public interface DynamicTableMapper {
     List<StudentVo> getStudentData();
 
     List<EmpVo> getEmpData();
+
+
+    List<DynamicTableVo> getData(@Param("pageSize") Integer pageSize,@Param("offset") Integer offset,@Param("searchKey") String searchKey);
+
+    Integer getCount(@Param("searchKey") String searchKey);
 }
