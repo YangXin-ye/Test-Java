@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class AliOss {
 
-    private String endpoint = "https://oss-cn-nanjing.aliyuncs.com";
-    private String accessKeyId = "LTAI5tKsJtiRmt7F1sFBLdiV";
-    private String accessKeySecret = "BIQsoZUAdwPeYBhv7bTOOJkxNOUhVw";
-    private String bucketName = "yxy-study";
+    private String endpoint = "";
+    private String accessKeyId = "";
+    private String accessKeySecret = "";
+    private String bucketName = "";
 
 
 }
