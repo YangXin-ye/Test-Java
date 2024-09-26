@@ -3,9 +3,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.200.5:3306/users?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+      url: jdbc:mysql://127.0.0.1:3306/users?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
       username: root
-      password: Qazxsw0..0
+      password: root
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -17,7 +17,7 @@ spring:
   redis:
     host: 192.168.200.5
     port: 6379
-    password: redis123
+    password:
   servlet:
     multipart:
       enabled: true
@@ -42,7 +42,7 @@ mybatis-plus:
 
 aliyun:
   oss:
-    endpoint: https://oss-cn-nanjing.aliyuncs.com
-    accessKeyId: LTAI5tKsJtiRmt7F1sFBLdiV
-    accessKeySecret: BIQsoZUAdwPeYBhv7bTOOJkxNOUhVw
-    bucketName: yxy-study
+    endpoint:
+    accessKeyId:
+    accessKeySecret:
+    bucketName:
